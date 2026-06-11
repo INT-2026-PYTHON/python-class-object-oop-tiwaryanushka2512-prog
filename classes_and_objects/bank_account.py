@@ -83,3 +83,46 @@ Explanation:
 =================================================
 
 """
+class BankAccount:
+    def __init__(self, name, account_number, opening_balance=0):
+        if opening_balance < 0:
+            print("Initial balance cannot be negative.")
+            self.balance = 0
+        else:
+            self.balance = opening_balance
+        self.name = name
+        self.account_number = account_number
+
+    def deposit(self, amount):
+        if amount <= 0:
+            print(f"Deposit amount must be > 0 (got {amount})")
+        else:
+            self.balance += amount
+
+    def withdraw(self, amount):
+        if amount <= 0:
+            print("Withdrawal amount must be greater than zero.")
+        elif amount > self.balance:
+            print(f"Insufficient funds for {self.name} (balance={self.balance}, asked={amount})")
+        else:
+            self.balance -= amount
+
+    def get_balance(self):
+        return self.balance
+
+    def __str__(self):
+        return f"Account[{self.account_number} - {self.name}]: ${self.balance}"
+
+
+a1 = BankAccount("Alice", "001", 500)
+a2 = BankAccount("Bob", "002")
+
+a1.deposit(200)
+a1.withdraw(100)
+a1.withdraw(2000)
+
+a2.deposit(-50)
+a2.deposit(300)
+
+print(a1)
+print(a2)
